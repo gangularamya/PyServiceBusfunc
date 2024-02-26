@@ -31,9 +31,9 @@ async def main(req: func.HttpRequest) -> func.HttpResponse:
     with servicebus_client:
         sender = servicebus_client.get_queue_sender(queue_name)
         with sender:
-            for i in range(100):
+            for i in range(20):
                 message = ServiceBusMessage(f"Hello, Service Bus! Message {i+1}")
                 sender.send_messages(message)
                 # time.sleep(20)  # pause for 20 seconds
 
-    return func.HttpResponse("Message sent to Service Bus queue.")
+    return func.HttpResponse("Test: Message sent to Service Bus queue.")
