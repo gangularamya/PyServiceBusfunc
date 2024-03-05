@@ -32,7 +32,12 @@ jobs:
         pip install -r requirements.txt --target=".python_packages/lib/site-packages"
 
     - name: Print app name
-      run: echo "App Name: ${{ secrets[format('AZURE_FUNCTIONAPP_NAME_{0}', steps.env.outputs.env)] }}"
+      run: |
+        if [ -n "${{ secrets[format('AZURE_FUNCTIONAPP_NAME_{0}', steps.env.outputs.env)] }}" ]; then
+          echo "App name secret is set."
+        else
+          echo "App name secret is not set."
+        fi
       
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
