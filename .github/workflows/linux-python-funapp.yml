@@ -9,9 +9,6 @@ on:
 
 jobs:
   build-and-deploy:
-    strategy:
-      matrix:
-        environment: ['dev', 'stage', 'prod']
     runs-on: ubuntu-latest
     steps:
     - name: 'Checkout GitHub Action'
@@ -22,9 +19,11 @@ jobs:
       with:
         python-version: '3.8'
 
-    - name: Convert environment to uppercase
+    - name: Set environment based on branch
       id: env
-      run: echo "::set-output name=env::$(echo ${{ matrix.environment }} | tr '[:lower:]' '[:upper:]')"
+      run: |
+        branch=${GITHUB_REF#refs/heads/}
+        echo "::set-output name=env::$(echo $branch | tr '[:lower:]' '[:upper:]')"
 
     - name: 'Resolve Project Dependencies Using Pip'
       shell: bash
