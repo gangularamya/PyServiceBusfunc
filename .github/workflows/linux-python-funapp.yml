@@ -31,6 +31,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt --target=".python_packages/lib/site-packages"
 
+    - name: Print app name
+      run: echo "App Name: ${{ secrets[format('AZURE_FUNCTIONAPP_NAME_{0}', steps.env.outputs.env)] }}"
+      
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
       id: fa
