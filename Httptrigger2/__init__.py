@@ -7,13 +7,21 @@ import time
 
 
 async def main(req: func.HttpRequest) -> func.HttpResponse:
-    service_bus_namespace = "PythonFuncServiceBusResPrem.servicebus.windows.net"
+    # service_bus_namespace = "PythonFuncServiceBusResPrem.servicebus.windows.net"
+    service_bus_namespace = os.environ.get("ServiceBusConnection__fullyQualifiedNamespace")
     # connection_string = os.getenv("ServiceBusConnectionString")
-    queue_name = "demosb"
+    # queue_name = "demosb"
+    queue_name = os.environ.get("ServiceBusQueueName")
+    logging.info(f"Service Bus Namespace: {service_bus_namespace}")
+    logging.info(f"Queue Name: {queue_name}")
     
     credential = DefaultAzureCredential()
-    servicebus_client = ServiceBusClient(service_bus_namespace, credential)
+    servicebus_client = ServiceBusClient(
+        fully_qualified_namespace=service_bus_namespace,
+        credential=credential)
+    # servicebus_client = ServiceBusClient(service_bus_namespace, credential)
     logging.info('Python HTTP trigger function processed a request.')
+    
 
 
     # message = ServiceBusMessage("Hello, Service Bus!")
