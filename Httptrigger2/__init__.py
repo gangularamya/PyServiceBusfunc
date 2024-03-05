@@ -26,4 +26,4 @@ async def main(req: func.HttpRequest) -> func.HttpResponse:
                 sender.send_messages(message)
                 # time.sleep(20)  # pause for 20 seconds
 
-    return func.HttpResponse("Test9798: Message sent to Service Bus queue.")
+    return func.HttpResponse("Dev Environment: Message sent to Service Bus queue.")
